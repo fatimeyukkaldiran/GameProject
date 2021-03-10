@@ -1,4 +1,5 @@
 ﻿using GameProject.Business.Abstract;
+using GameProject.DataAccess.Abstract;
 using GameProject.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,31 @@ namespace GameProject.Business.Concrete
 {
     public class GameCampaingManager : IGameCampaingService
     {
-        List<Campaign> campaigns;
+        ICampaignDal _campaignDal;
 
-        public GameCampaingManager()
+        public GameCampaingManager(ICampaignDal campaignDal)
         {
-            campaigns = new List<Campaign>();
+            _campaignDal = campaignDal;
         }
 
         public void Add(Campaign campaign)
         {
-            campaigns.Add(campaign);
-            Console.WriteLine("Campaing is added");
+            _campaignDal.Add(campaign);
         }
 
         public void Delete(Campaign campaign)
         {
-            campaigns.Remove(campaign);
-            Console.WriteLine("Campaing is deleted");
+            _campaignDal.Delete(campaign);
+        }
+
+        public List<Campaign> GetAll()
+        {
+            return _campaignDal.GetAll();
         }
 
         public void Update(Campaign campaign)
         {
-            Console.WriteLine("Campaing is updated");
+            _campaignDal.Update(campaign);
         }
     }
 }

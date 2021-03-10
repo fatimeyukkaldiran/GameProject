@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameProject.Business.Abstract
+namespace GameProject.DataAccess.Abstract
 {
-   public interface IGameCampaingService
+   public interface ICampaignDal
     {
         void Add(Campaign campaign);
         void Delete(Campaign campaign);
         void Update(Campaign campaign);
         List<Campaign> GetAll();
+       
     }
 }

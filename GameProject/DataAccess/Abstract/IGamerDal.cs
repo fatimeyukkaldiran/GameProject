@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameProject.Business.Abstract
+namespace GameProject.DataAccess.Abstract
 {
-   public interface IGamerService
+   public interface IGamerDal
     {
         void Add(Gamer gamer);
         void Delete(Gamer gamer);
@@ -14,5 +14,7 @@ namespace GameProject.Business.Abstract
         List<Gamer> GetAllByCampaignId(int campaignId);
         List<Gamer> GetAllByGameId(int gameId);
 
+       
+        
     }
 }

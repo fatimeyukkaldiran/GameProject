@@ -1,4 +1,5 @@
 ﻿using GameProject.Business.Abstract;
+using GameProject.DataAccess.Abstract;
 using GameProject.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,36 @@ namespace GameProject.Business.Concrete
 {
     public class GameManager : IGameService
     {
-        List<Game> games;
+        IGameDal _gameDal;
 
-        public GameManager()
+        public GameManager(IGameDal gameDal)
         {
-            games = new List<Game>();
+            _gameDal = gameDal;
         }
 
         public void Add(Game game)
         {
-            games.Add(game);
-            Console.WriteLine("Game is added");
+            _gameDal.Add(game);
         }
 
         public void Delete(Game game)
         {
-            games.Remove(game);
-            Console.WriteLine("Game is deleted");
+            _gameDal.Delete(game);
         }
 
-        public void Update(Gamer game)
+        public List<Game> GetAll()
         {
-            Console.WriteLine("Game is updated");
+          return  _gameDal.GetAll();
+        }
+
+        public List<Game> GetAllByCampaignId(int campaignId)
+        {
+            return _gameDal.GetAllByCampaignId(campaignId);
+        }
+
+        public void Update(Game game)
+        {
+            _gameDal.Update(game);
         }
     }
 }

@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameProject.Business.Abstract
+namespace GameProject.DataAccess.Abstract
 {
-   public interface IGameService
+   public interface IGameDal
     {
         void Add(Game game);
         void Delete(Game game);
         void Update(Game game);
         List<Game> GetAll();
         List<Game> GetAllByCampaignId(int campaignId);
-
+                 
     }
 }

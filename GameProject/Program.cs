@@ -1,5 +1,6 @@
 ﻿using GameProject.Adapter;
 using GameProject.Business.Concrete;
+using GameProject.DataAccess.Concrete.InMemory;
 using GameProject.Entities.Concrete;
 using System;
 
@@ -9,50 +10,55 @@ namespace GameProject
     {
         static void Main(string[] args)
         {
-            GamerManager gamerManager = new GamerManager(new MernisServiceAdapter());
+            GamerManager gamerManager = new GamerManager(new MernisServiceAdapter(), new InMemoryGamerDal());
+
             gamerManager.Add(new Gamer
             {
-                Id = 1,
-                IdentityNumber = 27497507845,
+                Id = 4,
+                GameId = 3,
+                CampaignId = 4,
+                IdentityNumber = 58497509250,
                 Name = "FATİME",
                 LastName = "YÜKKALDIRAN",
                 BirthYear = 1994,
 
             });
 
-            GameManager gameManager = new GameManager();
+            foreach (var gamer in gamerManager.GetAllByGameId(2))
+            {
+                Console.WriteLine(gamer.Name + " " + gamer.LastName);
+            }
+
+            foreach (var gamer in gamerManager.GetAll())
+            {
+                Console.WriteLine(gamer.Name);
+            }
+
+            GameManager gameManager = new GameManager(new InMemoryGameDal());
+
             gameManager.Add(new Game
             {
                 Id = 1,
                 Name = "Candy Crash",
-                Price = 465.54
+                Price = 115.54
             });
-            
-            GameCampaingManager campaingManager = new GameCampaingManager();
+            GameCampaingManager campaingManager = new GameCampaingManager(new InMemoryCampaignDal());
             campaingManager.Add(new Campaign
             {
-                Id = 1,
+                Id = 4,
                 Name = "2021 Summer Campaing",
                 DiscountRate = 30
             });
 
             GameSalesManager salesManager = new GameSalesManager();
-            salesManager.SellGame(new Game
-            {
-                Id = 1,
-                Name = "PUBG",
-                Price = 500
-            },
-              new Gamer
-              {
-                  Id = 2,
-                  IdentityNumber = 154789,
-                  Name = "Ece",
-                  LastName = "Deniz",
-                  BirthYear = 2000
-              }
-              );
+           // SellGame(salesManager);
+          //  SellCampaigngame(salesManager);
+        }
 
+    
+
+        private static void SellCampaigngame(GameSalesManager salesManager)
+        {
             salesManager.CampaingSell(
                        new Game
                        {
@@ -69,7 +75,7 @@ namespace GameProject
                     LastName = "Kaya",
                     BirthYear = 1993
                 },
-         
+
                 new Campaign
                 {
                     Id = 5,
@@ -79,5 +85,25 @@ namespace GameProject
 
             );
         }
+
+        private static void SellGame(GameSalesManager salesManager)
+        {
+            salesManager.SellGame(new Game
+            {
+                Id = 1,
+                Name = "PUBG",
+                Price = 500
+            },
+              new Gamer
+              {
+                  Id = 2,
+                  IdentityNumber = 154789,
+                  Name = "Ece",
+                  LastName = "Deniz",
+                  BirthYear = 2000
+              }
+              );
+        }
+           
     }
 }
